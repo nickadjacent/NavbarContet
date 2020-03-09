@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useState } from "react";
+import "./App.css";
+import Form from "./Components/Form";
+import Context from "./Components/Context";
 
-function App() {
+const Navbar = () => {
+  const { name } = useContext(Context);
+
+  return <div className="navbar">Hi, {name}!</div>;
+};
+
+const FormWrapper = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="form">
+      <Form />
     </div>
   );
-}
+};
+
+const Wrapper = () => {
+  return (
+    <div>
+      <Navbar />
+      <FormWrapper />
+    </div>
+  );
+};
+
+const App = () => {
+  const [name, setName] = useState("Bob Smith");
+
+  return (
+    <Context.Provider value={{ name, setName }}>
+      <Wrapper></Wrapper>
+    </Context.Provider>
+  );
+};
 
 export default App;
